@@ -17,17 +17,20 @@ class App extends React.Component {
             wins: 0,
             losses: 0,
             won: false,
+            waitTimer: 0,
             pregameTimer: 0,
             round: 0,
             gameTimer: 0,
             conn: socket()
         }
-        
+        this.gameLength = 3;  // <------------------[GAME LENGTH]
+
         this.selectThrow = this.selectThrow.bind(this);
         this.readyUp = this.readyUp.bind(this);
         this.playGame = this.playGame.bind(this);
         this.endGame = this.endGame.bind(this);
         this.restart = this.restart.bind(this);
+        this.wait = this.wait.bind(this);
 
         //  incoming emissions handlers ///
         this.state.conn.opponentsThrow((RPS) => {
@@ -49,13 +52,23 @@ class App extends React.Component {
     }
 
     readyUp(e){
-        this.setState({ready: true});
+        this.setState({ready: true}, this.wait);
         this.state.conn.readyUp();
+        
+    }
+
+    wait(){
+        if(this.state.ready){
+            setTimeout(() => {
+                this.setState({waitTimer: this.state.waitTimer + 1});
+                this.wait();
+            }, 1000);
+        };
     }
 
     pregameTimer(){
         let t = 3;
-        this.setState({pregameTimer: t});
+        this.setState({pregameTimer: t, ready: false, waitTimer: 0});
 
         const countItDown = () => {
             setTimeout(() => {
@@ -94,7 +107,7 @@ class App extends React.Component {
                     let win = checkWin();
                     let wins = (win === true) ? this.state.wins + 1 : this.state.wins;
                     let losses = (win === false) ? this.state.losses + 1  : this.state.losses;
-                    if (wins === 7) { //<---------------------------------------
+                    if (wins === this.gameLength) { //<---------------------------------------
                         setTimeout(this.endGame, 750);
                     };
                     this.setState({gameTimer: t, wins, losses});
@@ -106,8 +119,8 @@ class App extends React.Component {
                     r ++;
                     //check game over
                     this.setState({gameTimer: t, round: r});
-                    if(r < 20) playRound();
-                    else if(r === 20 && this.state.gameStarted) this.endGame(true);
+                    if(r < 100) playRound();
+                    else if(r === 100 && this.state.gameStarted) this.endGame(true);
                 }, 1000);
             }
         }
@@ -130,7 +143,7 @@ class App extends React.Component {
 
     endGame(tie){
         let w = false;
-        if(this.state.wins === 7){//<-----------------------------------------------------------
+        if(this.state.wins === this.gameLength){//<-----------------------------------------------------------
             this.state.conn.wonGame();
             w = true;
         }
@@ -144,8 +157,10 @@ class App extends React.Component {
     render(){
 
         let count = this.state.pregameTimer === 0 ? 'Go!' : this.state.pregameTimer;
-        let yourImage = this.state.selected ? `${this.state.selected}.png` : 'asdf.png'
-
+        const waits = ['Waiting for opponent.', 'Waiting for opponent..', 'Waiting for opponent...'];
+        let yourImage = this.state.selected ? `${this.state.selected}.png` : 'Shrug.png';
+        let theirImage = this.state.opponentChoice ? `${this.state.opponentChoice}.png` : 'Shrug.png';
+        let endGame = this.state.won ? 'You Won!' : 'You Lost';
         return (
             <>
             <div id="game-box">
@@ -155,6 +170,7 @@ class App extends React.Component {
                     <>
                     <h1>Rock Paper Scissors</h1>
                     <img src="home.png" id="home-image"></img>
+                    <br></br>
                     <h3>Play an opponent to a best of seven series.</h3>
                     <h3>Ready up to find a game!</h3>
                     <br></br>
@@ -163,11 +179,11 @@ class App extends React.Component {
                     {/* Ready */}
                     {(this.state.ready && !this.state.pregame && !this.state.gameStarted) && <>
                     <h1>Rock Paper Scissors</h1>
-                    <h3>Waiting on Opponent.</h3>
+                    <h3>{waits[this.state.waitTimer % 3]}</h3>
                     <img src="spinner.gif"></img>
                     </>}
                     {/* Pregame */}
-                    {(this.state.ready && this.state.pregame && !this.state.gameStarted) && <>
+                    {(this.state.pregame && !this.state.gameStarted) && <>
                     <h1>Rock Paper Scissors</h1>
                     <h3>Starting game in...</h3>
                     <h1>{count}</h1>
@@ -175,41 +191,40 @@ class App extends React.Component {
                     {/* Pre-Shoot */}
                     {(this.state.gameStarted && this.state.gameTimer !==3) && <>
                     <br></br>
-                    <span>{3 - this.state.gameTimer}</span>
+                    <h1 id="counter">{3 - this.state.gameTimer}</h1>
                     </>}
                     {/* Shoot! */}
                     {(this.state.gameStarted && this.state.gameTimer === 3) && 
                     <>
-                    <img src={`${this.state.opponentChoice}.png`}></img>
+                    <img src={theirImage} className="game-image"></img>
                     <br></br>
-                    <img src={`${this.state.selected}.png`}></img>
+                    <img src={yourImage} className="game-image"></img>
                     <br></br>
                     </>}
                     {/* Post-Game */}
-                    {(this.state.postgame) && <>
-                    <h1>Game Over</h1>
-                    </>}
-                        {/* Win & Loss*/}
-                        {(this.state.postgame && this.state.won) && <h2>You Won!</h2>}
-                        {(this.state.postgame && !this.state.won) && <h2>You Lost</h2>}
-                </div>
-            
-                <div id="buttons">
-                    {/* During Game */}
-                    {(this.state.gameStarted) &&
+                    {(this.state.postgame) && 
                     <>
-                    <h3>{this.state.wins + ' - ' + this.state.losses}</h3>
-                    <button onClick={this.selectThrow} className="button" id="Rock">Rock</button>
-                    <button onClick={this.selectThrow} className="button" id="Paper">Paper</button>
-                    <button onClick={this.selectThrow} className="button" id="Scissors">Scissors</button>
-                    </>}
-                    {/* Post-Game */}
-                    {(this.state.postgame) && <>
-                    <h3>{this.state.wins + ' - ' + this.state.losses}</h3>
+                    <h1>Game Over</h1>
+                    <h2>{endGame}</h2>
+                    <br></br>
+                    <h1>{this.state.wins + ' - ' + this.state.losses}</h1>
                     <button onClick={this.restart} className="button">Play Again!</button>
                     </>}
-
                 </div>
+            
+            {/* Buttons */}
+                {/* During Game */}
+                {(this.state.gameStarted) &&
+                <>
+                <div id="buttons">
+                <h1>{this.state.wins + ' - ' + this.state.losses}</h1>
+                <button onClick={this.selectThrow} className="button" id="Rock">Rock</button>
+                <button onClick={this.selectThrow} className="button" id="Paper">Paper</button>
+                <button onClick={this.selectThrow} className="button" id="Scissors">Scissors</button>
+                </div>
+                </>}
+                {/* Post-Game */}
+
             </div>
             </>
         )

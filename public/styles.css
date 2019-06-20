@@ -1,26 +1,13 @@
 body {
     font-family: 'Titillium Web', sans-serif;
-}
-
-#countdown{
-    font-size: 60px;
-    height: 441px;
-    margin: 0;
-}
-
-#home-image {
-    height: 250px;
-    left: 50px;
+    display: block;
+    text-align: center;
 }
 
 #game-box {
+    margin: 50px 0 0 0;
     text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 500px;
-    height: 500px;
-    margin: -250px 0 0 -250px;
+    width: 100%;
 }
 
 #buttons {
@@ -31,6 +18,26 @@ body {
     bottom: 0px;
     left: 50%;
     margin: 0 0 0 -300px;
+}
+
+#countdown{
+    font-size: 60px;
+    height: 441px;
+    margin: 0;
+}
+#counter{
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    margin: 0 9px 0 0
+}
+#home-image {
+    height: 250px;
+    left: 50px;
+}
+
+.game-image {
+    width: 200px;
 }
 
 .button {
