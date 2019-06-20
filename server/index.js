@@ -46,6 +46,7 @@ io.on('connection', (socket) => {
         }
     });
 
+
     socket.on('game over', () => {
         socket.broadcast.emit('game over');
     });

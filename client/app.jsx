@@ -25,6 +25,7 @@ class App extends React.Component {
         this.selectThrow = this.selectThrow.bind(this);
         this.readyUp = this.readyUp.bind(this);
         this.playGame = this.playGame.bind(this);
+        this.endGame = this.endGame.bind(this);
         this.restart = this.restart.bind(this);
 
         //  incoming emissions handlers ///
@@ -37,7 +38,7 @@ class App extends React.Component {
             this.pregameTimer();
         });
         this.state.conn.lostGame(() => {
-            this.setState({pregame: false, ready: false, gameStarted: false, won: false});
+            this.endGame();
         });
     }
 
@@ -77,7 +78,10 @@ class App extends React.Component {
         let r = 0;
         let t = 0;
         const playRound = () => {
-            if(t < 2){
+            if(!this.state.gameStarted){
+                return;
+            }
+            else if(t < 2){
                 setTimeout(() => {
                     t++;
                     this.setState({gameTimer: t});
@@ -88,6 +92,9 @@ class App extends React.Component {
                     t++;
                     let win = checkWin();
                     let wins = win ? this.state.wins + 1 : this.state.wins;
+                    if (wins === 7) { //<---------------------------------------
+                        setTimeout(this.endGame, 750);
+                    };
                     this.setState({gameTimer: t, wins});
                     playRound();
                 }, 1000);
@@ -97,11 +104,12 @@ class App extends React.Component {
                     r ++;
                     //check game over
                     this.setState({gameTimer: t, round: r});
-                    if(r < 4) playRound();
-                    else if(r === 4) endGame();
+                    if(r < 20) playRound();
+                    else if(r === 20 && this.state.gameStarted) this.endGame(true);
                 }, 1000);
             }
         }
+
         const checkWin = () => {
             let mine = this.state.selected;
             let theirs = this.state.opponentChoice;
@@ -113,14 +121,16 @@ class App extends React.Component {
             return won;
         }
 
-        const endGame = () => {
-            this.setState({postgame: true, gameStarted: false, pregame: false, ready: false});
-            this.state.conn.wonGame();
-            console.log('check line 119 for "won game"');
-        }
-
-
         playRound();
+    };
+
+    endGame(tie){
+        let w = false;
+        if(this.state.wins === 7){//<-----------------------------------------------------------
+            this.state.conn.wonGame();
+            w = true;
+        }
+        this.setState({postgame: true, gameStarted: false, pregame: false, ready: false, won: w});
     };
 
     restart(){
@@ -160,6 +170,9 @@ class App extends React.Component {
                     {(this.state.postgame) && <>
                     <h2>Game Over!</h2>
                     </>}
+                        {/* Win & Loss*/}
+                        {(this.state.postgame && this.state.won) && <h2>You Won!</h2>}
+                        {(this.state.postgame && !this.state.won) && <h2>You Lost!</h2>}
                 </div>
                 <div id="buttons">
                     {/* During Game */}
