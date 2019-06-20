@@ -13,8 +13,7 @@ http.listen(port, () => console.log('Listening on port...', port));
 
 
 //server "state"
-let userCount = 0;
-let readyCount = 0;
+let userCount = 0;  
 let readyPlayers = [];
 
 io.on('connection', (socket) => {
@@ -27,7 +26,6 @@ io.on('connection', (socket) => {
         console.log('Connected users:', userCount);
         if(readyPlayers.indexOf(socket.id) !== -1){
             readyPlayers.splice(readyPlayers.indexOf(socket.id), 1);
-            readyCount --;
             console.log('Removed player from ready queue.');
         }
     });
@@ -38,20 +36,18 @@ io.on('connection', (socket) => {
 
     socket.on('ready up', () => {
         if(!readyPlayers.includes(socket.id)){
-            readyCount ++;
             readyPlayers.push(socket.id);
-            console.log(`${readyCount} user(s) ready to play`);
-            if(readyCount === 2){
+            console.log(`${readyPlayers.length} user(s) ready to play`);
+            if(readyPlayers.length === 2){
                 console.log('Starting Game!');
                 io.emit('start game');
+                readyPlayers = [];
             }
         }
     });
 
     socket.on('game over', () => {
-        readyPlayers.splice(readyPlayers.indexOf(socket.id), 1);
-        readyCount --;
-        socket.broadcast.emit('game over')
+        socket.broadcast.emit('game over');
     });
 
 })
