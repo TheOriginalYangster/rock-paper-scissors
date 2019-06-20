@@ -23,7 +23,7 @@ class App extends React.Component {
             gameTimer: 0,
             conn: socket()
         }
-        this.gameLength = 3;  // <------------------[GAME LENGTH]
+        this.gameLength = 1;  // <------------------[GAME LENGTH]
 
         this.selectThrow = this.selectThrow.bind(this);
         this.readyUp = this.readyUp.bind(this);
@@ -168,7 +168,7 @@ class App extends React.Component {
                     {/* Unready */}
                     {(!this.state.ready && !this.state.pregame && !this.state.gameStarted && !this.state.postgame) && 
                     <>
-                    <h1>Rock Paper Scissors</h1>
+                    <h1 className="main-title">Rock Paper Scissors</h1>
                     <img src="home.png" id="home-image"></img>
                     <br></br>
                     <h3>Play an opponent to a best of seven series.</h3>
@@ -178,20 +178,21 @@ class App extends React.Component {
                     </>}
                     {/* Ready */}
                     {(this.state.ready && !this.state.pregame && !this.state.gameStarted) && <>
-                    <h1>Rock Paper Scissors</h1>
+                    <h1 className="main-title">Rock Paper Scissors</h1>
                     <h3>{waits[this.state.waitTimer % 3]}</h3>
                     <img src="spinner.gif"></img>
                     </>}
                     {/* Pregame */}
                     {(this.state.pregame && !this.state.gameStarted) && <>
-                    <h1>Rock Paper Scissors</h1>
-                    <h3>Starting game in...</h3>
-                    <h1>{count}</h1>
+                    <h1 className="main-title">Rock Paper Scissors</h1>
+                    <br></br>
+                    <h2>Starting game in...</h2>
+                    <h1 className="counter">{count}</h1>
                     </>}
                     {/* Pre-Shoot */}
                     {(this.state.gameStarted && this.state.gameTimer !==3) && <>
                     <br></br>
-                    <h1 id="counter">{3 - this.state.gameTimer}</h1>
+                    <h1 id="game-counter">{3 - this.state.gameTimer}</h1>
                     </>}
                     {/* Shoot! */}
                     {(this.state.gameStarted && this.state.gameTimer === 3) && 
@@ -204,7 +205,7 @@ class App extends React.Component {
                     {/* Post-Game */}
                     {(this.state.postgame) && 
                     <>
-                    <h1>Game Over</h1>
+                    <h1 className="main-title">Game Over</h1>
                     <h2>{endGame}</h2>
                     <br></br>
                     <h1>{this.state.wins + ' - ' + this.state.losses}</h1>

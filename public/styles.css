@@ -19,17 +19,19 @@ body {
     left: 50%;
     margin: 0 0 0 -300px;
 }
-
+.main-title{
+    margin-top: 90px;
+    font-size: 50px;
+}
 #countdown{
     font-size: 60px;
     height: 441px;
     margin: 0;
 }
-#counter{
+#game-counter{
     position: absolute;
     top: 35%;
     left: 50%;
-    margin: 0 9px 0 0
 }
 #home-image {
     height: 250px;
@@ -44,5 +46,5 @@ body {
     height: 50px;
     width: 125px;
     margin: 10px;
-    font-size: 14px;
+    font-size: 18px;
 }
