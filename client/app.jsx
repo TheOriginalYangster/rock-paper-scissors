@@ -17,9 +17,10 @@ class App extends React.Component {
             wins: 0,
             losses: 0,
             won: false,
-            waitTimer: 0,
+            waitTimer: 1,
+            waitRound: 1,
             pregameTimer: 0,
-            round: 0,
+            round: 1,
             gameTimer: 0,
             conn: socket()
         }
@@ -60,7 +61,8 @@ class App extends React.Component {
     wait(){
         if(this.state.ready){
             setTimeout(() => {
-                this.setState({waitTimer: this.state.waitTimer + 1});
+                let waitRound = this.state.waitTimer % 7 === 0 ? this.state.waitRound + 1: this.state.waitRound;
+                this.setState({waitTimer: this.state.waitTimer + 1, waitRound});
                 this.wait();
             }, 1000);
         };
@@ -143,7 +145,7 @@ class App extends React.Component {
 
     endGame(tie){
         let w = false;
-        if(this.state.wins === this.gameLength){//<-----------------------------------------------------------
+        if(this.state.wins === this.gameLength){
             this.state.conn.wonGame();
             w = true;
         }
@@ -151,7 +153,7 @@ class App extends React.Component {
     };
 
     restart(){
-        this.setState({ opponentChoice: null, selected: null, ready: false, pregame: false, gameStarted: false, postgame: false, wins: 0, losses: 0, pregameTimer: 0, round: 0, gameTimer: 0 });
+        this.setState({ opponentChoice: null, selected: null, ready: false, pregame: false, gameStarted: false, postgame: false, wins: 0, losses: 0, pregameTimer: 0, round: 0, gameTimer: 0, waitRound: 1, waitRound: 1, round: 1});
     }
 
     render(){
@@ -161,6 +163,10 @@ class App extends React.Component {
         let yourImage = this.state.selected ? `${this.state.selected}.png` : 'Shrug.png';
         let theirImage = this.state.opponentChoice ? `${this.state.opponentChoice}.png` : 'Shrug.png';
         let endGame = this.state.won ? 'You Won!' : 'You Lost';
+
+        const randomMessages = ['Who knew recursion could be so fun?', 'Still a better game than Overwatch.',
+        'Business inquiries via Venmo: Will_Yang361', 'Shaka Lootbox coming this August.'];
+
         return (
             <>
             <div id="game-box">
@@ -171,7 +177,7 @@ class App extends React.Component {
                     <h1 className="main-title">Rock Paper Scissors</h1>
                     <img src="home.png" id="home-image"></img>
                     <br></br>
-                    <h3>Play an opponent to a best of seven series.</h3>
+                    <h3>Play somebody online in a best of seven game.</h3>
                     <h3>Ready up to find a game!</h3>
                     <br></br>
                     <button onClick={this.readyUp} className="button">Ready Up!</button>
@@ -181,6 +187,7 @@ class App extends React.Component {
                     <h1 className="main-title">Rock Paper Scissors</h1>
                     <h3>{waits[this.state.waitTimer % 3]}</h3>
                     <img src="spinner.gif"></img>
+                    <h3>{randomMessages[this.state.waitRound % randomMessages.length]}</h3>
                     </>}
                     {/* Pregame */}
                     {(this.state.pregame && !this.state.gameStarted) && <>
@@ -199,7 +206,7 @@ class App extends React.Component {
                     {/* Shoot! */}
                     {(this.state.gameStarted && this.state.gameTimer === 3) && 
                     <>
-                    <h1 className="round-title">Round: {this.state.round + 1}</h1>
+                    <h1 className="round-title">Round: {this.state.round}</h1>
                     <img src={theirImage} className="game-image"></img>
                     <br></br>
                     <img src={yourImage} className="game-image"></img>
@@ -213,6 +220,11 @@ class App extends React.Component {
                     <br></br>
                     <h1>{this.state.wins + ' - ' + this.state.losses}</h1>
                     <button onClick={this.restart} className="button">Play Again!</button>
+                    <br></br><br></br><br></br>
+                    <h3><a href="https://github.com/TheOriginalYangster/rock-paper-scissors">
+                    Check out the code
+                    </a></h3>
+                    <br></br>
                     </>}
                 </div>
             
