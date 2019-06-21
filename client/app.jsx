@@ -24,7 +24,7 @@ class App extends React.Component {
             gameTimer: 0,
             conn: socket()
         }
-        this.gameLength = 7;  // <------------------[GAME LENGTH]
+        this.gameLength = 5;  // <------------------[GAME LENGTH]
 
         this.selectThrow = this.selectThrow.bind(this);
         this.readyUp = this.readyUp.bind(this);
@@ -177,7 +177,7 @@ class App extends React.Component {
                     <h1 className="main-title">Rock Paper Scissors</h1>
                     <img src="home.png" id="home-image"></img>
                     <br></br>
-                    <h3>Play somebody online in a best of seven game.</h3>
+                    <h3>Play somebody online in a best of five game.</h3>
                     <h3>Ready up to find a game!</h3>
                     <br></br>
                     <button onClick={this.readyUp} className="button">Ready Up!</button>
@@ -233,10 +233,10 @@ class App extends React.Component {
                 {(this.state.gameStarted) &&
                 <>
                 <div id="buttons">
-                <h1>{this.state.wins + ' - ' + this.state.losses}</h1>
-                <button onClick={this.selectThrow} className="button" id="Rock">Rock</button>
-                <button onClick={this.selectThrow} className="button" id="Paper">Paper</button>
-                <button onClick={this.selectThrow} className="button" id="Scissors">Scissors</button>
+                    <h1>{this.state.wins + ' - ' + this.state.losses}</h1>
+                    <button onClick={this.selectThrow} className="button" id="Rock">Rock</button>
+                    <button onClick={this.selectThrow} className="button" id="Paper">Paper</button>
+                    <button onClick={this.selectThrow} className="button" id="Scissors">Scissors</button>
                 </div>
                 </>}
                 {/* Post-Game */}
