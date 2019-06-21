@@ -23,7 +23,7 @@ class App extends React.Component {
             gameTimer: 0,
             conn: socket()
         }
-        this.gameLength = 1;  // <------------------[GAME LENGTH]
+        this.gameLength = 7;  // <------------------[GAME LENGTH]
 
         this.selectThrow = this.selectThrow.bind(this);
         this.readyUp = this.readyUp.bind(this);
