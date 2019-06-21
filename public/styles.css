@@ -54,6 +54,11 @@ a:hover {
     left: 50%;
     margin: 0 0 0 -300px;
 }
+
+#spinner {
+    width: 441px;
+    height: 291px;
+}
 .main-title{
     margin-top: 40px;
     font-size: 50px;

@@ -186,7 +186,7 @@ class App extends React.Component {
                     {(this.state.ready && !this.state.pregame && !this.state.gameStarted) && <>
                     <h1 className="main-title">Rock Paper Scissors</h1>
                     <h3>{waits[this.state.waitTimer % 3]}</h3>
-                    <img src="spinner.gif"></img>
+                    <img src="spinner.gif" id="spinner"></img>
                     <h3>{randomMessages[this.state.waitRound % randomMessages.length]}</h3>
                     </>}
                     {/* Pregame */}
