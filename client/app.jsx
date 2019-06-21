@@ -190,13 +190,16 @@ class App extends React.Component {
                     <h1 className="counter">{count}</h1>
                     </>}
                     {/* Pre-Shoot */}
-                    {(this.state.gameStarted && this.state.gameTimer !==3) && <>
+                    {(this.state.gameStarted && this.state.gameTimer !==3) && 
+                    <>
+                    <h1 className="round-title">Round: {this.state.round}</h1>
                     <br></br>
                     <h1 id="game-counter">{3 - this.state.gameTimer}</h1>
                     </>}
                     {/* Shoot! */}
                     {(this.state.gameStarted && this.state.gameTimer === 3) && 
                     <>
+                    <h1 className="round-title">Round: {this.state.round + 1}</h1>
                     <img src={theirImage} className="game-image"></img>
                     <br></br>
                     <img src={yourImage} className="game-image"></img>

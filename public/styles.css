@@ -2,12 +2,15 @@ body {
     font-family: 'Titillium Web', sans-serif;
     display: block;
     text-align: center;
+    background-size: cover;
 }
 
 #game-box {
+    display: inline-block;
     margin: 50px 0 0 0;
     text-align: center;
-    width: 100%;
+    width: 80%;
+    background: white;
 }
 
 #buttons {
@@ -20,8 +23,13 @@ body {
     margin: 0 0 0 -300px;
 }
 .main-title{
-    margin-top: 90px;
+    margin-top: 40px;
     font-size: 50px;
+}
+.round-title{
+    margin: 40px 0 0 0;
+    font-size: 50px;
+    margin: 5px 0;
 }
 #countdown{
     font-size: 60px;
