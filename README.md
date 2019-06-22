@@ -9,7 +9,7 @@ React app served with a Node.js/Express server both using Socket.io.
 
 # The Good
 It's fun to play!  The game works on a 'cadance' and has a realistic rock, paper, scissors feel to it.
-Can use it to settle disputes over Slack, Discord, etc.  Can't decide on where to go for lunch and your coworker is on a different floor?  No problem.  Your friend wants to play Mordou and you want to play Counter-Strike?  Settle it with your virtual hand.
+Can use it to settle disputes over Slack, Discord, etc.  You and a coworker can't decide on where to go for lunch and on different floors?  No problem.  Your friend wants to play Mordou and you want to play Counter-Strike?  You can now settle it with your virtual hands.
 CSS wise, it looks good on 15' Macbooks.
 Lots of different states and slick looking loading and playing screens.
 
@@ -21,4 +21,4 @@ The code is a little cluttered/hacky.  Things that could be seperated into seper
 # Code Diagram
 <img src="https://i.kym-cdn.com/entries/icons/original/000/026/862/homer.jpg">
 
-Thanks for checking this out!
+
