@@ -14,7 +14,7 @@ CSS wise, it looks good on 15' Macbooks.<br>
 
 # The Could Be Better
 Currently only handles two players, game malfunctions when multiple people try to play.  May come back and implement a room feature later.<br>
-It is playable on mobile but the CSS messes up.  Also messes up on different screen resolutions.  Playable, but not pretty.<br>
+CSS is not formatted for smaller/mobile screens.<br>
 The code is a little cluttered/hacky.  Things that could be seperated into seperate React components are just slapped into a heap of conditional renders.
 
 # Code Diagram
