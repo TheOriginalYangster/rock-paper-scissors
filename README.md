@@ -2,6 +2,7 @@
 
 # Goal
 Create a browser game in two days. This is the result!
+<a href="https://theoriginalyangster-rps.herokuapp.com/">Try it out here.</a>
 
 # Tech
 React app served with a Node.js/Express server both using Socket.io.
