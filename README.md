@@ -1,7 +1,7 @@
 # rock-paper-scissors
 
 # Goal
-Create a browser game in two days. This is the result!
+Create a browser game in two days. This is the result! <br>
 <a href="https://theoriginalyangster-rps.herokuapp.com/">Try it out here.</a>
 
 # Tech
