@@ -10,7 +10,7 @@ React app served with a Node.js/Express server both using Socket.io.
 # The Good
 It's fun to play!  The game works on a 'cadance' and has a realistic rock, paper, scissors feel to it.<br>
 Can use it to settle disputes over Slack, Discord, etc.  You and a coworker can't decide on where to go for lunch and on different floors?  No problem.  Your friend wants to play Mordou and you want to play Counter-Strike?  You can now decide with your virtual hands.<br>
-CSS wise, it looks good on 15' Macbooks.<br>
+Looks great on 15' Macbooks.<br>
 
 # The Could Be Better
 Currently only handles two players, game malfunctions when multiple people try to play.  May come back and implement a room feature later.<br>
