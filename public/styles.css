@@ -36,7 +36,7 @@ a:hover {
     margin-top: 15px;
     box-sizing: border-box;
     box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.2), 0px 40px 40px 0px rgba(0, 0, 0, 0.14), 0px 60px 20px -40px rgba(0, 0, 0, 0.12);
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 #game-box {
