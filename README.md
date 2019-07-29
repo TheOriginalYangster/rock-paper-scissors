@@ -17,6 +17,13 @@ Currently only handles two players, game malfunctions when multiple people try t
 CSS is not formatted for smaller/mobile screens.<br>
 The code is a little cluttered/hacky.  Things that could be seperated into seperate React components are just slapped into a heap of conditional renders.
 
+#TODO
+<ul>
+<li>Seperate game states into different components</li>
+<li>Create game rooms, allowing for multiple games to be played simultaniously</li>
+<li>Fix CSS issues</li>
+</ul>
+
 # Code Diagram
 <img src="https://i.kym-cdn.com/entries/icons/original/000/026/862/homer.jpg">
 
