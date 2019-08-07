@@ -1,5 +1,4 @@
 # rock-paper-scissors
-testing webhooks
 
 # Goal
 Create a browser game in two days. This is the result! <br>
