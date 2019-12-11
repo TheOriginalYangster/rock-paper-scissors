@@ -2,7 +2,9 @@
 
 # Goal
 Create a browser game in two days. This is the result! <br>
-<a href="https://theoriginalyangster-rps.herokuapp.com/">Try it out here.</a>
+<a href="https://theoriginalyangster-rps.herokuapp.com/">Try it out here.</a>  It requires two players, so send a link to your friend or co-worker.
+
+# Install
 
 # Tech
 React app served with a Node.js/Express server both using Socket.io.
@@ -24,7 +26,5 @@ The code is a little cluttered/hacky.  Things that could be seperated into seper
 <li>Fix CSS issues</li>
 </ul>
 
-# Code Diagram
-<img src="https://i.kym-cdn.com/entries/icons/original/000/026/862/homer.jpg">
 
 
